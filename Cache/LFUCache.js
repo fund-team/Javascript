@@ -1,55 +1,10 @@
-class DoubleLinkedListNode {
-  // Double Linked List Node built specifically for LFU Cache
+
+import { DoubleLinkedList } from '../Data-Structures/Linked-List/DoublyLinkedList'
+
+class CacheItem {
   constructor (key, val) {
     this.key = key
     this.val = val
-    this.freq = 0
-    this.next = null
-    this.prev = null
-  }
-}
-
-class DoubleLinkedList {
-  // Double Linked List built specifically for LFU Cache
-  constructor () {
-    this.head = new DoubleLinkedListNode(null, null)
-    this.rear = new DoubleLinkedListNode(null, null)
-    this.head.next = this.rear
-    this.rear.prev = this.head
-  }
-
-  _positionNode (node) {
-    // Helper function to position a node based on the frequency of the key
-    while (node.prev.key && node.prev.freq > node.freq) {
-      const node1 = node
-      const node2 = node.prev
-      node1.prev = node2.prev
-      node2.next = node1.prev
-      node1.next = node2
-      node2.prev = node1
-    }
-  }
-
-  add (node) {
-    // Adds the given node to the end of the list (before rear) and positions it based on frequency
-    const temp = this.rear.prev
-    temp.next = node
-    node.prev = temp
-    this.rear.prev = node
-    node.next = this.rear
-    this._positionNode(node)
-  }
-
-  remove (node) {
-    // Removes and returns the given node from the list
-    const tempLast = node.prev
-    const tempNext = node.next
-    node.prev = null
-    node.next = null
-    tempLast.next = tempNext
-    tempNext.prev = tempLast
-
-    return node
   }
 }
 
@@ -76,18 +31,18 @@ class LFUCache {
     // Sets the value for the input key and updates the Double Linked List
     if (!(key in this.cache)) {
       if (this.numKeys >= this.capacity) {
-        const keyToDelete = this.list.head.next.key
-        this.list.remove(this.cache[keyToDelete])
+        const keyToDelete = this.list.getHead().element.key
+        this.list.delete(this.cache[keyToDelete])
         delete this.cache[keyToDelete]
         this.numKeys -= 1
       }
-      this.cache[key] = new DoubleLinkedListNode(key, value)
-      this.list.add(this.cache[key])
+      this.cache[key] = new CacheItem(key, value)
+      this.list.append(this.cache[key])
       this.numKeys += 1
     } else {
-      const node = this.list.remove(this.cache[key])
+      const node = this.list.delete(this.cache[key])
       node.val = value
-      this.list.add(node)
+      this.list.append(node)
     }
   }
 
@@ -95,7 +50,7 @@ class LFUCache {
     // Returns the value for the input key and updates the Double Linked List. Returns null if key is not present in cache
     if (key in this.cache) {
       this.hits += 1
-      this.list.add(this.list.remove(this.cache[key]))
+      this.list.append(this.list.delete(this.cache[key]))
       return this.cache[key].val
     }
     this.miss += 1
