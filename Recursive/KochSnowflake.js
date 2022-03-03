@@ -12,8 +12,6 @@
  * (for a more detailed explanation and an implementation in the Processing language, see
  * https://natureofcode.com/book/chapter-8-fractals/ #84-the-koch-curve-and-the-arraylist-technique).
  */
- 
- 
 
 /**
  * Go through the number of iterations determined by the argument "steps".

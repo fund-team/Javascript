@@ -123,9 +123,8 @@ class Vector2 {
     const x = ca * this.x - sa * this.y
     const y = sa * this.x + ca * this.y
     return new Vector2(x, y)
-          }
-          
-          
+  }
+
   /**
    * Vector rotation (see https://en.wikipedia.org/wiki/Rotation_matrix)
    *
@@ -136,7 +135,6 @@ class Vector2 {
     const radians = angleInDegrees * Math.PI / 180
     return this.rotate(radians)
   }
-  
 
   /**
    * Measure agle between two vectors
