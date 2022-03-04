@@ -1,3 +1,5 @@
+import { WeightedUndirectedGraph } from "../Data-Structures/Graph/WeightedUndirectedGraph"
+
 // Priority Queue Helper functions
 function getParentPosition (position) {
   // Get the parent node of the current node
@@ -143,66 +145,38 @@ class PriorityQueue {
   }
 }
 
-class GraphWeightedUndirectedAdjacencyList {
-  // Weighted Undirected Graph class
-  constructor () {
-    this.connections = {}
+function primMST (inputGraph, start) {
+  // Prim's Algorithm to generate a Minimum Spanning Tree (MST) of a graph
+  // Details: https://en.wikipedia.org/wiki/Prim%27s_algorithm
+  const distance = {}
+  const parent = {}
+  const priorityQueue = new PriorityQueue()
+  // Initialization
+  for (const node in inputGraph.adjacencyMap) {
+    distance[node] = (node === start.toString() ? 0 : Infinity)
+    parent[node] = null
+    priorityQueue.push(node, distance[node])
   }
-
-  addNode (node) {
-    // Function to add a node to the graph (connection represented by set)
-    this.connections[node] = {}
-  }
-
-  addEdge (node1, node2, weight) {
-    // Function to add an edge (adds the node too if they are not present in the graph)
-    if (!(node1 in this.connections)) { this.addNode(node1) }
-    if (!(node2 in this.connections)) { this.addNode(node2) }
-    this.connections[node1][node2] = weight
-    this.connections[node2][node1] = weight
-  }
-
-  PrimMST (start) {
-    // Prim's Algorithm to generate a Minimum Spanning Tree (MST) of a graph
-    // Details: https://en.wikipedia.org/wiki/Prim%27s_algorithm
-    const distance = {}
-    const parent = {}
-    const priorityQueue = new PriorityQueue()
-    // Initialization
-    for (const node in this.connections) {
-      distance[node] = (node === start.toString() ? 0 : Infinity)
-      parent[node] = null
-      priorityQueue.push(node, distance[node])
-    }
-    // Updating 'distance' object
-    while (!priorityQueue.isEmpty()) {
-      const node = priorityQueue.pop()
-      Object.keys(this.connections[node]).forEach(neighbour => {
-        if (priorityQueue.contains(neighbour) && distance[node] + this.connections[node][neighbour] < distance[neighbour]) {
-          distance[neighbour] = distance[node] + this.connections[node][neighbour]
-          parent[neighbour] = node
-          priorityQueue.update(neighbour, distance[neighbour])
-        }
-      })
-    }
-
-    // MST Generation from the 'parent' object
-    const graph = new GraphWeightedUndirectedAdjacencyList()
-    Object.keys(parent).forEach(node => {
-      if (node && parent[node]) {
-        graph.addEdge(node, parent[node], this.connections[node][parent[node]])
+  // Updating 'distance' object
+  while (!priorityQueue.isEmpty()) {
+    const node = priorityQueue.pop()
+    Object.keys(inputGraph.adjacencyMap[node]).forEach(neighbour => {
+      if (priorityQueue.contains(neighbour) && distance[node] + inputGraph.adjacencyMap[node][neighbour] < distance[neighbour]) {
+        distance[neighbour] = distance[node] + inputGraph.adjacencyMap[node][neighbour]
+        parent[neighbour] = node
+        priorityQueue.update(neighbour, distance[neighbour])
       }
     })
-    return graph
   }
+
+  // MST Generation from the 'parent' object
+  const graph = new WeightedUndirectedGraph()
+  Object.keys(parent).forEach(node => {
+    if (node && parent[node]) {
+      graph.addEdge(node, parent[node], inputGraph.adjacencyMap[node][parent[node]])
+    }
+  })
+  return graph
 }
 
-export { GraphWeightedUndirectedAdjacencyList }
-
-// const graph = new GraphWeightedUndirectedAdjacencyList()
-// graph.addEdge(1, 2, 1)
-// graph.addEdge(2, 3, 2)
-// graph.addEdge(3, 4, 1)
-// graph.addEdge(3, 5, 100) // Removed in MST
-// graph.addEdge(4, 5, 5)
-// graph.PrimMST(1)
+export { primMST }
