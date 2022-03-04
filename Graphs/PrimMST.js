@@ -1,4 +1,4 @@
-import { WeightedUndirectedGraph } from "../Data-Structures/Graph/WeightedUndirectedGraph"
+import { WeightedUndirectedGraph } from '../Data-Structures/Graph/WeightedUndirectedGraph'
 
 // Priority Queue Helper functions
 function getParentPosition (position) {

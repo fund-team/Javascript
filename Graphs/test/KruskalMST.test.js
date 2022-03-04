@@ -1,4 +1,4 @@
-import { WeightedUndirectedGraph } from "../../Data-Structures/Graph/WeightedUndirectedGraph"
+import { WeightedUndirectedGraph } from '../../Data-Structures/Graph/WeightedUndirectedGraph'
 import { kruskalMST } from '../KruskalMST'
 
 describe('Test kruskalMST function', () => {
@@ -15,10 +15,11 @@ describe('Test kruskalMST function', () => {
   it('Should delete the edge with weight 100 and the one between 2 and 3', () => {
     const mstGraph = kruskalMST(graph)
     expect(mstGraph.adjacencyMap).toEqual({
-      1: {2: 1, 3: 1},
-      2: {1: 1},
-      3: {4: 1, 1: 1},
-      4: {3: 1, 5: 5},
-      5: {4: 5}})
+      1: { 2: 1, 3: 1 },
+      2: { 1: 1 },
+      3: { 4: 1, 1: 1 },
+      4: { 3: 1, 5: 5 },
+      5: { 4: 5 }
+    })
   })
 })

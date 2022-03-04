@@ -1,5 +1,5 @@
-import { WeightedUndirectedGraph } from "../Data-Structures/Graph/WeightedUndirectedGraph"
-import { UnionFind } from "../Search/UnionFind"
+import { WeightedUndirectedGraph } from '../Data-Structures/Graph/WeightedUndirectedGraph'
+import { UnionFind } from '../Search/UnionFind'
 
 function kruskalMST (inputGraph) {
   // Kruskal's Algorithm to generate a Minimum Spanning Tree (MST) of a graph
@@ -18,7 +18,7 @@ function kruskalMST (inputGraph) {
   edges.sort((a, b) => a[2] - b[2])
   // creating the disjoint set
   const nbNodes = Object.keys(inputGraph.adjacencyMap).length
-  const disjointSet = new UnionFind(nbNodes, function(a) {return a-1})
+  const disjointSet = new UnionFind(nbNodes, function (a) { return a - 1 })
   // MST generation
   const graph = new WeightedUndirectedGraph()
   let numEdges = 0
