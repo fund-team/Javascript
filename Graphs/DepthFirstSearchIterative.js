@@ -1,51 +1,45 @@
-class GraphUnweightedUndirected {
-  // Unweighted Undirected Graph class
-  constructor () {
-    this.connections = {}
-  }
+/*
+Two function are implemented:
+1. A function that returns the list of the visited nodes using iterative DFS
+2. A function that returns a boolean indicating whether two nodes are connected
+*/
 
-  addNode (node) {
-    // Function to add a node to the graph (connection represented by set)
-    this.connections[node] = new Set()
-  }
-
-  addEdge (node1, node2) {
-    // Function to add an edge (adds the node too if they are not present in the graph)
-    if (!(node1 in this.connections)) { this.addNode(node1) }
-    if (!(node2 in this.connections)) { this.addNode(node2) }
-    this.connections[node1].add(node2)
-    this.connections[node2].add(node1)
-  }
-
-  DFSIterative (node, value) {
-    // DFS Function to search if a node with the given value is present in the graph
-    const stack = [node]
-    const visited = new Set()
-    while (stack.length > 0) {
-      const currNode = stack.pop()
-      // if the current node contains the value being searched for, true is returned
-      if (currNode === value) { return true }
-      // adding the current node to the visited set
-      visited.add(currNode)
-      // adding neighbours in the stack
-      for (const neighbour of this.connections[currNode]) {
-        if (!visited.has(neighbour)) {
-          stack.push(neighbour)
-        }
+function dfsIterative (graph, startingNode) {
+  // Iterative DFS algorithm that returns the list of visited nodes starting from the input node
+  const stack = [startingNode]
+  const visited = []
+  while (stack.length > 0) {
+    const currNode = stack.pop()
+    // adding the current node to the visited set
+    visited.push(currNode)
+    // adding neighbours in the stack
+    for (const neighbour of graph.adjacencyMap[currNode].reverse()) {
+      if (!visited.includes(neighbour)) {
+        stack.push(neighbour)
       }
     }
-    return false
   }
+  return visited
 }
 
-export { GraphUnweightedUndirected }
+function areConnectedUsingDFSIterative (graph, startingNode, targetNode) {
+  // Iterative DFS algorithm that returns whether the two nodes are connected in the graph
+  const stack = [startingNode]
+  const visited = new Set()
+  while (stack.length > 0) {
+    const currNode = stack.pop()
+    // if the current node is the second given in input, true is returned
+    if (currNode === targetNode) { return true }
+    // adding the current node to the visited set
+    visited.add(currNode)
+    // adding neighbours in the stack
+    for (const neighbour of graph.adjacencyMap[currNode]) {
+      if (!visited.has(neighbour)) {
+        stack.push(neighbour)
+      }
+    }
+  }
+  return false
+}
 
-// Example
-
-// const graph = new GraphUnweightedUndirected()
-// graph.addEdge(1, 2)
-// graph.addEdge(2, 3)
-// graph.addEdge(2, 4)
-// graph.addEdge(3, 5)
-// graph.DFSIterative(5, 1)
-// graph.DFSIterative(5, 100)
+export { dfsIterative, areConnectedUsingDFSIterative }
