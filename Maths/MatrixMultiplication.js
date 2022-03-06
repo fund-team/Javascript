@@ -11,6 +11,7 @@ const matrixCheck = (matrix) => {
       columnNumb = matrix[index].length
     } else if (matrix[index].length !== columnNumb) {
       // The columns in this array are not equal
+      throw new Error('The columns in this array are not equal')
     } else {
       return columnNumb
     }
@@ -19,8 +20,9 @@ const matrixCheck = (matrix) => {
 
 // tests to see if the matrices have a like side, i.e. the row length on the first matrix matches the column length on the second matrix, or vice versa.
 const twoMatricesCheck = (first, second) => {
-  const [firstRowLength, secondRowLength, firstColLength, secondColLength] = [first.length, second.length, matrixCheck(first), matrixCheck(second)]
-  if (firstRowLength !== secondColLength || secondRowLength !== firstColLength) {
+  matrixCheck(second)
+  const [firstNbColumns, secondNbRows] = [matrixCheck(first), second.length]
+  if (firstNbColumns !== secondNbRows) {
     // These matrices do not have a common side
     return false
   } else {
@@ -37,7 +39,7 @@ const initiateEmptyArray = (first, second) => {
     })
     return emptyArray
   } else {
-    return false
+    throw new Error('The dimension of the matrices must match')
   }
 }
 
@@ -47,11 +49,8 @@ const initiateEmptyArray = (first, second) => {
 export const matrixMult = (firstArray, secondArray) => {
   const multMatrix = initiateEmptyArray(firstArray, secondArray)
   for (let rm = 0; rm < firstArray.length; rm++) {
-    const rowMult = []
-    for (let col = 0; col < firstArray[0].length; col++) {
-      rowMult.push(firstArray[rm][col])
-    }
-    for (let cm = 0; cm < firstArray.length; cm++) {
+    const rowMult = firstArray[rm]
+    for (let cm = 0; cm < secondArray[0].length; cm++) {
       const colMult = []
       for (let row = 0; row < secondArray.length; row++) {
         colMult.push(secondArray[row][cm])
@@ -65,27 +64,3 @@ export const matrixMult = (firstArray, secondArray) => {
   }
   return multMatrix
 }
-
-// const firstMatrix = [
-//   [1, 2],
-//   [3, 4]
-// ]
-
-// const secondMatrix = [
-//   [5, 6],
-//   [7, 8]
-// ]
-
-// matrixMult(firstMatrix, secondMatrix) // [ [ 19, 22 ], [ 43, 50 ] ]
-
-// const thirdMatrix = [
-//   [-1, 4, 1],
-//   [7, -6, 2]
-// ]
-// const fourthMatrix = [
-//   [2, -2],
-//   [5, 3],
-//   [3, 2]
-// ]
-
-// matrixMult(thirdMatrix, fourthMatrix) // [ [ 21, 16 ], [ -10, -28 ] ]
