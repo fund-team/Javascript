@@ -1,10 +1,4 @@
-import { factorial, permutation, combination } from '../PermutationAndCombination'
-
-describe('Factorial', () => {
-  it('factorial(5)', () => {
-    expect(factorial(5)).toBe(120)
-  })
-})
+import { permutation, combination } from '../PermutationAndCombination'
 
 describe('Permutation', () => {
   it('permutation(5, 2)', () => {

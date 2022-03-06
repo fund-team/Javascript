@@ -1,4 +1,5 @@
 import { memoize } from '../Memoize'
+import { factorial } from '../../Recursive/Factorial'
 
 const fibonacci = (n) => {
   if (n < 2) {
@@ -6,14 +7,6 @@ const fibonacci = (n) => {
   }
 
   return fibonacci(n - 2) + fibonacci(n - 1)
-}
-
-const factorial = (n) => {
-  if (n === 0) {
-    return 1
-  }
-
-  return n * factorial(n - 1)
 }
 
 describe('Memoize', () => {
