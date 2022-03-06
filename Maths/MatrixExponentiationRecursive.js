@@ -8,6 +8,8 @@
            n is the power the matrix is raised to
 */
 
+import { matrixMult } from './MatrixMultiplication'
+
 const Identity = (n) => {
   // Input: n: int
   // Output: res: Identity matrix of size n x n
@@ -22,29 +24,6 @@ const Identity = (n) => {
   return res
 }
 
-const MatMult = (matrixA, matrixB) => {
-  // Input: matrixA: 2D Array of Numbers of size n x n
-  //        matrixB: 2D Array of Numbers of size n x n
-  // Output: matrixA x matrixB: 2D Array of Numbers of size n x n
-  // Complexity: O(n^3)
-  const n = matrixA.length
-  const matrixC = []
-  for (let i = 0; i < n; i++) {
-    matrixC[i] = []
-    for (let j = 0; j < n; j++) {
-      matrixC[i][j] = 0
-    }
-  }
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      for (let k = 0; k < n; k++) {
-        matrixC[i][j] += matrixA[i][k] * matrixB[k][j]
-      }
-    }
-  }
-  return matrixC
-}
-
 export const MatrixExponentiationRecursive = (mat, m) => {
   // Input: mat: 2D Array of Numbers of size n x n
   // Output: mat^n: 2D Array of Numbers of size n x n
@@ -56,25 +35,11 @@ export const MatrixExponentiationRecursive = (mat, m) => {
     // tmp = mat ^ m-1
     const tmp = MatrixExponentiationRecursive(mat, m - 1)
     /// return tmp * mat = (mat ^ m-1) * mat = mat ^ m
-    return MatMult(tmp, mat)
+    return matrixMult(tmp, mat)
   } else {
     // tmp = mat ^ m/2
     const tmp = MatrixExponentiationRecursive(mat, m >> 1)
     // return tmp * tmp = (mat ^ m/2) ^ 2 = mat ^ m
-    return MatMult(tmp, tmp)
+    return matrixMult(tmp, tmp)
   }
 }
-
-// const mat = [[1, 0, 2], [2, 1, 0], [0, 2, 1]]
-
-// // mat ^ 0 = [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ]
-// MatrixExponentiationRecursive(mat, 0)
-
-// // mat ^ 1 = [ [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 1 ] ]
-// MatrixExponentiationRecursive(mat, 1)
-
-// // mat ^ 2 = [ [ 1, 4, 4 ], [ 4, 1, 4 ], [ 4, 4, 1 ] ]
-// MatrixExponentiationRecursive(mat, 2)
-
-// // mat ^ 5 = [ [ 1, 4, 4 ], [ 4, 1, 4 ], [ 4, 4, 1 ] ]
-// MatrixExponentiationRecursive(mat, 5)
