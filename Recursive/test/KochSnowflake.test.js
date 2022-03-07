@@ -1,4 +1,7 @@
-import { iterate, Vector2 } from '../KochSnowflake'
+
+import { iterate } from '../KochSnowflake'
+
+import { Vector2 } from '../../Data-Structures/Vectors/Vector2'
 
 describe('KochSnowflake', () => {
   it('should produce the correctly-transformed vectors', () => {

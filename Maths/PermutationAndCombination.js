@@ -3,24 +3,7 @@
  * @external_link (Permutation And Combinations)[https://www.geeksforgeeks.org/permutation-and-combination/]
  */
 
-/**
- * @brief Calculates the factorial of the given number.
- * @param num: integer
- * @details Factorial of n = n * (n - 1) * (n - 2) * ... * 1
- * @returns integer: Factorial of the number.
-            NaN: if negative number is provided.
- */
-const factorial = (n) => {
-  if (n >= 0) {
-    if (n === 0) {
-      return 1
-    } else {
-      return n * factorial(n - 1)
-    }
-  } else {
-    return NaN
-  }
-}
+import { factorial } from '../Recursive/Factorial'
 
 /**
  * @brief Calculates the number of Permutations from the given data.
@@ -47,4 +30,4 @@ const combination = (n, r) => {
 }
 
 // Exports the functions to be used in other files.
-export { factorial, permutation, combination }
+export { permutation, combination }

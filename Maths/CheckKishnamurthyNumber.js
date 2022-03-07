@@ -5,15 +5,7 @@
     145 => 1! + 4! + 5! = 1  + 24 + 120 = 145
 */
 
-// factorial utility method.
-const factorial = (n) => {
-  let fact = 1
-  while (n !== 0) {
-    fact = fact * n
-    n--
-  }
-  return fact
-}
+import { factorial } from '../Recursive/Factorial'
 
 /**
  * krishnamurthy number is a number the sum of the factorial of the all dights is equal to the number itself.

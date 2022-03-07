@@ -1,4 +1,6 @@
-import { Vector2, iterate } from './KochSnowflake'
+
+import { iterate } from './KochSnowflake'
+import { Vector2 } from '../../Data-Structures/Vectors/Vector2'
 
 /**
  * Method to render the Koch snowflake to a canvas.

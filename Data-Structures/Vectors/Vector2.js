@@ -126,7 +126,18 @@ class Vector2 {
   }
 
   /**
-   * Measure angle between two vectors
+   * Vector rotation (see https://en.wikipedia.org/wiki/Rotation_matrix)
+   *
+   * @param angleInDegrees The angle by which to rotate the vector.
+   * @returns The rotated vector.
+   */
+  rotateInDegrees (angleInDegrees) {
+    const radians = angleInDegrees * Math.PI / 180
+    return this.rotate(radians)
+  }
+
+  /**
+   * Measure agle between two vectors
    *
    * @param vector The 2nd vector for the measurement.
    * @returns The angle in radians.
