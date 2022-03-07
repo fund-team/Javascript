@@ -34,7 +34,6 @@ describe('Depth First Binary Tree Traversal', () => {
   it('Depth First Binary Tree Traversal', () => {
     expect(depthFirstBinaryTreeTraversal()).toStrictEqual([])
     const traversal = depthFirstBinaryTreeTraversal(tree)
-    console.log(traversal)
     expect(traversal).toStrictEqual([7, 5, 3, 6, 8, 9])
   })
 })
