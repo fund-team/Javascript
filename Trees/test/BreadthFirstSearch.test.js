@@ -1,14 +1,11 @@
-import {
-  breadthFirstGenericTreeTraversal,
-  breadthFirstBinaryTreeTraversal
-} from '../BreadthFirstTreeTraversal'
+import { genericTreeBFS, binaryTreeBFS } from '../BreadthFirstSearch'
 import {
   Tree,
   GenericTreeNode,
   BinaryTreeNode
 } from '../../Data-Structures/Tree/Tree'
 
-describe('Breadth First Generic Tree Traversal', () => {
+describe('Generic Tree BFS', () => {
   const rootNode = new GenericTreeNode(7)
   const n1 = new GenericTreeNode(5)
   const n2 = new GenericTreeNode(8)
@@ -33,14 +30,14 @@ describe('Breadth First Generic Tree Traversal', () => {
   //         /|\   \
   //        3 4 6   9
 
-  it('Generic tree - Level order traversal', () => {
-    expect(breadthFirstGenericTreeTraversal()).toStrictEqual([])
-    const traversal = breadthFirstGenericTreeTraversal(tree)
-    expect(traversal).toStrictEqual([7, 5, 8, 3, 4, 6, 9])
+  it('Generic tree - BFS', () => {
+    expect(genericTreeBFS(tree, 6)).toStrictEqual(6)
+    expect(genericTreeBFS(tree, 11)).toBeNull()
+    expect(genericTreeBFS(new Tree(), 11)).toBeNull()
   })
 })
 
-describe('Breadth First Binary Tree Traversal', () => {
+describe('Binary Tree BFS', () => {
   const rootNode = new BinaryTreeNode(7)
   const n1 = new BinaryTreeNode(5)
   const n2 = new BinaryTreeNode(8)
@@ -63,9 +60,9 @@ describe('Breadth First Binary Tree Traversal', () => {
   //         / \   \
   //        3   6   9
 
-  it('Binary tree - Level order traversal', () => {
-    expect(breadthFirstBinaryTreeTraversal()).toStrictEqual([])
-    const traversal = breadthFirstBinaryTreeTraversal(tree)
-    expect(traversal).toStrictEqual([7, 5, 8, 3, 6, 9])
+  it('Binary tree - BFS', () => {
+    expect(binaryTreeBFS(tree, 9)).toStrictEqual(9)
+    expect(binaryTreeBFS(tree, 11)).toBeNull()
+    expect(binaryTreeBFS(new Tree(), 11)).toBeNull()
   })
 })

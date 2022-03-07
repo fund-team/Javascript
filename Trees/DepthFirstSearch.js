@@ -1,76 +1,59 @@
 /*
  * Author: Surendra Kumar
- * DFS Algorithm implementation in JavaScript
- * DFS Algorithm for traversing or searching graph data structures.
-*/
+ * DFS Algorithm implementation using preorder (root, left, right) and a stack datastructure in JavaScript
+ * DFS Algorithm for searching tree data structures.
+ */
 
-function traverseDFS (root) {
-  const stack = [root]
-  const res = []
+import { Stack } from '../Data-Structures/Stack/Stack'
 
-  while (stack.length) {
-    const curr = stack.pop()
-    res.push(curr.key)
+function genericTreeDFS (tree, value) {
+  const stack = new Stack()
 
-    if (curr.right) {
-      stack.push(curr.right)
-    }
-
-    if (curr.left) {
-      stack.push(curr.left)
-    }
+  if (typeof tree !== 'undefined' && typeof tree.root !== 'undefined') {
+    stack.push(tree.root)
   }
 
-  return res.reverse()
+  while (stack.size()) {
+    const node = stack.pop()
+
+    if (node.value === value) {
+      return node.value
+    }
+
+    if (node.children.length === 0) {
+      continue
+    }
+
+    node.children
+      .slice()
+      .reverse()
+      .forEach((element) => {
+        stack.push(element)
+      })
+  }
+  return null
 }
 
-function searchDFS (tree, value) {
-  const stack = []
+function binaryTreeDFS (tree, value) {
+  const stack = new Stack()
+  if (typeof tree !== 'undefined' && typeof tree.root !== 'undefined') {
+    stack.push(tree.root)
+  }
 
-  stack.push(tree[0])
+  while (stack.size()) {
+    const node = stack.pop()
 
-  while (stack.length !== 0) {
-    for (let i = 0; i < stack.length; i++) {
-      const node = stack.pop()
-
-      if (node.value === value) {
-        return node
-      }
-      if (node.right) {
-        stack.push(tree[node.right])
-      }
-      if (node.left) {
-        stack.push(tree[node.left])
-      }
+    if (node.value === value) {
+      return node.value
+    }
+    if (node.right !== null) {
+      stack.push(node.right)
+    }
+    if (node.left !== null) {
+      stack.push(node.left)
     }
   }
   return null
 }
 
-const tree = [
-  { value: 6, left: 1, right: 2 },
-  { value: 5, left: 3, right: 4 },
-  { value: 7, left: null, right: 5 },
-  { value: 3, left: 6, right: null },
-  { value: 4, left: null, right: null },
-  { value: 9, left: 7, right: 8 },
-  { value: 2, left: 9, right: null },
-  { value: 8, left: null, right: null },
-  { value: 10, left: null, right: null },
-  { value: 1, left: null, right: null }
-]
-
-searchDFS(tree, 9)
-searchDFS(tree, 10)
-
-traverseDFS(6)
-
-//            6
-//           / \
-//          5   7
-//         / \   \
-//        3   4   9
-//       /       / \
-//      2       8   10
-//     /
-//    1
+export { genericTreeDFS, binaryTreeDFS }

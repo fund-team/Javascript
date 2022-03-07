@@ -1,13 +1,12 @@
 /*
-  Breadth First Tree Traversal or level order traversal implementation using Queue datastructure in javascript
-  Author: @GerardUbuntu
-*/
+ * BFS Algorithm implementation using a Queue data structure in JavaScript
+ * BFS Algorithm for searching tree data structures.
+ */
 
 import { Queue } from '../Data-Structures/Queue/Queue'
 
-function breadthFirstGenericTreeTraversal (tree) {
+function genericTreeBFS (tree, value) {
   const queue = new Queue()
-  const result = []
 
   if (typeof tree !== 'undefined' && typeof tree.root !== 'undefined') {
     queue.enqueue(tree.root)
@@ -15,21 +14,24 @@ function breadthFirstGenericTreeTraversal (tree) {
 
   while (!queue.empty()) {
     const node = queue.dequeue()
-    result.push(node.value)
 
-    if (node.children.length !== 0) {
-      node.children.forEach((element) => {
-        queue.enqueue(element)
-      })
+    if (node.value === value) {
+      return node.value
     }
-  }
 
-  return result
+    if (node.children.length === 0) {
+      continue
+    }
+
+    node.children.forEach((element) => {
+      queue.enqueue(element)
+    })
+  }
+  return null
 }
 
-function breadthFirstBinaryTreeTraversal (tree) {
+function binaryTreeBFS (tree, value) {
   const queue = new Queue()
-  const result = []
 
   if (typeof tree !== 'undefined' && typeof tree.root !== 'undefined') {
     queue.enqueue(tree.root)
@@ -37,8 +39,10 @@ function breadthFirstBinaryTreeTraversal (tree) {
 
   while (!queue.empty()) {
     const node = queue.dequeue()
-    result.push(node.value)
 
+    if (node.value === value) {
+      return node.value
+    }
     if (node.left !== null) {
       queue.enqueue(node.left)
     }
@@ -46,8 +50,7 @@ function breadthFirstBinaryTreeTraversal (tree) {
       queue.enqueue(node.right)
     }
   }
-
-  return result
+  return null
 }
 
-export { breadthFirstGenericTreeTraversal, breadthFirstBinaryTreeTraversal }
+export { genericTreeBFS, binaryTreeBFS }
