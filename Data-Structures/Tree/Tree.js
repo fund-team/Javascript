@@ -1,16 +1,16 @@
 class GenericTreeNode {
-  constructor(value) {
+  constructor (value) {
     this.value = value
     this.children = []
   }
 
-  addChild(child) {
+  addChild (child) {
     this.children.push(child)
   }
 }
 
 class BinaryTreeNode {
-  constructor(value) {
+  constructor (value) {
     this.value = value
     this.left = null
     this.right = null
@@ -18,7 +18,7 @@ class BinaryTreeNode {
 }
 
 class Tree {
-  constructor(rootNode) {
+  constructor (rootNode) {
     this.root = rootNode
   }
 }

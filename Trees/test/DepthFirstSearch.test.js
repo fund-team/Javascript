@@ -43,6 +43,7 @@ describe('Generic tree - Depth First Search', () => {
   it('Generic tree - Depth First Search', () => {
     expect(genericTreeDFS(tree, 11)).toStrictEqual(11)
     expect(genericTreeDFS(tree, 12)).toBeNull()
+    expect(genericTreeDFS(new Tree(), 11)).toBeNull()
   })
 })
 
@@ -82,5 +83,6 @@ describe('Binary tree - Depth First Search', () => {
   it('Binary tree - Depth First Search', () => {
     expect(binaryTreeDFS(tree, 9)).toStrictEqual(9)
     expect(binaryTreeDFS(tree, 11)).toBeNull()
+    expect(binaryTreeDFS(new Tree(), 11)).toBeNull()
   })
 })

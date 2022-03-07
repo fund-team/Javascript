@@ -1,6 +1,10 @@
+/*
+ * Depth First Tree Traversal or level order traversal implementation using Stack data structure in javascript
+ */
+
 import { Stack } from '../Data-Structures/Stack/Stack'
 
-function depthFirstGenericTreeTraversal(tree) {
+function depthFirstGenericTreeTraversal (tree) {
   const stack = new Stack()
   const result = []
 
@@ -28,7 +32,7 @@ function depthFirstGenericTreeTraversal(tree) {
   return result
 }
 
-function depthFirstBinaryTreeTraversal(tree) {
+function depthFirstBinaryTreeTraversal (tree) {
   const stack = new Stack()
   const result = []
 

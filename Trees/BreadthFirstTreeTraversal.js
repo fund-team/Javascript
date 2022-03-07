@@ -5,7 +5,7 @@
 
 import { Queue } from '../Data-Structures/Queue/Queue'
 
-function breadthFirstTreeTraversal(tree) {
+function breadthFirstGenericTreeTraversal (tree) {
   const queue = new Queue()
   const result = []
 
@@ -27,7 +27,7 @@ function breadthFirstTreeTraversal(tree) {
   return result
 }
 
-function breadthFirstBinaryTreeTraversal(tree) {
+function breadthFirstBinaryTreeTraversal (tree) {
   const queue = new Queue()
   const result = []
 
@@ -50,4 +50,4 @@ function breadthFirstBinaryTreeTraversal(tree) {
   return result
 }
 
-export { breadthFirstTreeTraversal, breadthFirstBinaryTreeTraversal }
+export { breadthFirstGenericTreeTraversal, breadthFirstBinaryTreeTraversal }
