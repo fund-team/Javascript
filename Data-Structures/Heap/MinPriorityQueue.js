@@ -77,33 +77,27 @@ class MinPriorityQueue {
 
   // this function reorders the heap after every delete function
   sink () {
-    let k = 1
-    while (2 * k <= this.size || 2 * k + 1 <= this.size) {
-      let minIndex
-      if (this.heap[2 * k] >= this.heap[k]) {
-        if (2 * k + 1 <= this.size && this.heap[2 * k + 1] >= this.heap[k]) {
-          break
-        } else if (2 * k + 1 > this.size) {
-          break
-        }
-      }
-      if (2 * k + 1 > this.size) {
-        minIndex = this.heap[2 * k] < this.heap[k] ? 2 * k : k
+    let parentIdx = 1
+    let childOneIdx = 2 * parentIdx
+    while (childOneIdx <= this.size) {
+      // Get the index of the second child if it exists
+      const childTwoIdx = childOneIdx + 1 <= this.size ? childOneIdx + 1 : -1
+
+      // Get the index of the minimum value beyond the children
+      const minIndex = childTwoIdx !== -1 && this.heap[childTwoIdx] < this.heap[childOneIdx]
+        ? childTwoIdx
+        : childOneIdx
+
+      // Swap the parent and its child if the child's value is lower
+      if (this.heap[parentIdx] > this.heap[minIndex]) {
+        const temp = this.heap[parentIdx]
+        this.heap[parentIdx] = this.heap[minIndex]
+        this.heap[minIndex] = temp
+        parentIdx = minIndex
+        childOneIdx = 2 * parentIdx
       } else {
-        if (
-          this.heap[k] > this.heap[2 * k] ||
-          this.heap[k] > this.heap[2 * k + 1]
-        ) {
-          minIndex =
-            this.heap[2 * k] < this.heap[2 * k + 1] ? 2 * k : 2 * k + 1
-        } else {
-          minIndex = k
-        }
+        return
       }
-      const temp = this.heap[k]
-      this.heap[k] = this.heap[minIndex]
-      this.heap[minIndex] = temp
-      k = minIndex
     }
   }
 
